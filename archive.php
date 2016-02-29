@@ -39,12 +39,12 @@
 	echo "success";
 
 	// saving local files
-	$img = $_POST['image'];
-	$img = str_replace('data:image/jpg;base64,', '', $img);
-	$img = str_replace(' ', '+', $img);
-	$fileData = base64_decode($img);
+	// $img = $_POST['image'];
+	// $img = str_replace('data:image/jpg;base64,', '', $img);
+	// $img = str_replace(' ', '+', $img);
+	// $fileData = base64_decode($img);
 	$id = uniqid();
-	$target_file = $id.".jpg";
+	$target_file = "uploads/img_".$id.".jpg";
 	// file_put_contents($fileName, $fileData);
 	if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
         echo "The file ". basename( $_FILES["image"]["name"]). " has been uploaded.";

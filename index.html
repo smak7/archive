@@ -16,17 +16,18 @@
 		<form id="saveName" action="archive.php" method="post" enctype="multipart/form-data">
 
  		   <input type="file" name="image" onchange="loadFile(event)">
- 		   <img id="output"/>
+ 		   <br>
+ 		   <img id="preview" style='max-width:400px;max-height:500px;'/>
  		  <script>
-  var loadFile = function(event) {
-    var reader = new FileReader();
-    reader.onload = function(){
-      var output = document.getElementById('output');
-      output.src = reader.result;
-    };
-    reader.readAsDataURL(event.target.files[0]);
-  };
-</script>
+				  var loadFile = function(event) {
+				  var reader = new FileReader();
+				  reader.onload = function(){
+				  var preview = document.getElementById('preview');
+				      preview.src = reader.result;
+				    };
+				    reader.readAsDataURL(event.target.files[0]);
+				  };
+		</script>
     		<br>
 			<br>
 					<label for = "description">Description:</label>
