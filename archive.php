@@ -2,7 +2,7 @@
 	// echo $_POST['location'];
 	error_reporting(-1);
 
-	$unique_id = uniqid();
+	$id = uniqid();
 	$description = $_POST['description'];
 	$keywords = $_POST['keywords'];
 	$year = $_POST['year'];
@@ -28,7 +28,7 @@
 	}
 	// TODO: fix SQL injection 
 	$query = "INSERT INTO photo_data (unique_id,description,keywords,year,location) VALUES 
-		('$unique_id','$description','$keywords',$year,'$location')"; 
+		('$id','$description','$keywords',$year,'$location')"; 
 
 	$result = mysqli_query($conn, $query);
 	if(!$result){
@@ -43,7 +43,7 @@
 	// $img = str_replace('data:image/jpg;base64,', '', $img);
 	// $img = str_replace(' ', '+', $img);
 	// $fileData = base64_decode($img);
-	$id = uniqid();
+	
 	$target_file = "uploads/img_".$id.".jpg";
 	// file_put_contents($fileName, $fileData);
 	if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
@@ -52,6 +52,26 @@
         echo "Sorry, there was an error uploading your file.";
     }
 
+    if(!is_dir("recordings")){
+	$res = mkdir("recordings",0777); 
+}
+
+// pull the raw binary data from the POST array
+$data = substr($_POST['data'], strpos($_POST['data'], ",") + 1);
+
+if($data){// decode it
+	$decodedData = base64_decode($data);
+	// print out the raw data, 
+	//echo ($decodedData);
+	$filename = 'audio_recording_' . $id .'.mp3';
+
+
+	// write the data out to the file
+	$fp = fopen('recordings/'.$filename, 'wb');
+	fwrite($fp, $decodedData);
+	fclose($fp);
+	echo "saved audio:".$filename;
+}
 ?>
 
 

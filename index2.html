@@ -18,32 +18,15 @@
 
 	</head>
 	<body>
-    <div id="header">
-      <p> insert logo and welcome text </p>
-   </div>
 
-   <div id = "welcome">
-      <div id = "inner"
-      <h1> Thank you for choosing to contribute! <br>Scroll down to begin the upload process.</h1>
-    </div>
-    </div>
+		<p class ="test"> [insert logo and welcome text] </p>
+    <p> upload your image below </p>
+				<form id="saveName" action="archive.php" method="post" enctype="multipart/form-data">
 
-    <div id = "stepOne">
-    <p class = "stepOne"> Step 1: Upload Image </h1> 
-
-				<div id ="fileUpload">
-           <form name="saveName" id="saveName" method="post" enctype="multipart/form-data">
-
- 		       <input type="file" name="image" onchange="loadFile(event)">
-        </div>
+ 		   <input type="file" name="image" onchange="loadFile(event)">
  		   <br>
- 		       <div class = "outsideWrapper"> 
-           <div class = "insideWrapper"> 
-        
-        <div id = "imagePreview">
-           <img id="preview" style='max-width:500px;max-height:600px;'/>
- 		    </div>
-      <script>
+ 		   <img id="preview" style='max-width:400px;max-height:500px;'/>
+ 		  <script>
 				  var loadFile = function(event) {
 				  var reader = new FileReader();
 				  reader.onload = function(){
@@ -52,15 +35,9 @@
 				    };
 				    reader.readAsDataURL(event.target.files[0]);
 				  };
-		</script> 
-    
-      <canvas class = "coveringCanvas"></canvas>
-    </div>
-  </div>
-    </div> 
-<div id  = "stepTwo"> 
+		</script>
+
     <h1>Record to MP3 Test</h1>
-  </div>
 
   <button onclick="startRecording(this);">record</button>
   <button onclick="stopRecording(this);" disabled>stop</button>
@@ -73,57 +50,6 @@
   <!-- <pre id="log"></pre> -->
 
   <script>
-  var mp3Blob;
-
-  // function for on submit
-  var my_form = document.forms.namedItem("saveName");
-  
-  my_form.addEventListener('submit', function(ev){
-    ev.preventDefault();
-    console.log("send form");
-    // var fd = new FormData(my_form);
-    // $.ajax({
-    //     type: 'POST',
-    //     url: 'archive.php',
-    //     data: fd,
-    //     processData: false,
-    //     contentType: false
-    //   }).done(function(data) {
-    //     console.log(data);
-    //     // log.innerHTML += "\n" + data;
-    //   });
-
-    var fd = new FormData(my_form);
-    if(mp3Blob){
-      var reader = new FileReader();
-      reader.onload = function(event){
-        
-        var mp3Name = encodeURIComponent('audio_recording_' + new Date().getTime() + '.mp3');
-        console.log("mp3name = " + mp3Name);
-        fd.append('audio_file', mp3Name);
-        fd.append('data', event.target.result);
-        do_upload(fd);
-      };
-      reader.readAsDataURL(mp3Blob);
-  }else{
-    do_upload(fd);
-  }
-
-  });
-
-  function do_upload(fd){
-    $.ajax({
-          type: 'POST',
-          url: 'archive.php',
-          data: fd,
-          processData: false,
-          contentType: false
-        }).done(function(data) {
-          console.log(data);
-          // log.innerHTML += "\n" + data;
-        });
-  }
-
   function __log(e, data) {
     //log.innerHTML += "\n" + e + " " + (data || '');
   }
@@ -205,7 +131,6 @@
     });
   };
   </script>
-
 
    <script src="js/jquery-1.11.0.min.js"></script>
   <script src="recordmp3.js"></script>
