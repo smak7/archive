@@ -7,8 +7,14 @@
 	$keywords = $_POST['keywords'];
 	$year = $_POST['year'];
 	$location = $_POST['location'];//'paris';
+	//$photo_id = $_POST['id'];
+	$audio_file = $_POST['audio_file'];
+	$hotspot = $_POST['hotspot_location'];
+	$hotspot_id = 0;
 	echo 'ok ';
 	echo  $_POST['year'];
+	echo 'hotspot ' . $hotspot;
+	//echo $_POST['hotspot'];
 
 	// connection 
 	// TODO:secure connection details 
@@ -30,10 +36,32 @@
 	$query = "INSERT INTO photo_data (unique_id,description,keywords,year,location) VALUES 
 		('$id','$description','$keywords',$year,'$location')"; 
 
+	// $result = mysqli_query($conn, $query);
+	// if(!$result){
+	// 	die("Database query failed.". mysqli_error($conn));
+	// }
+
+	// trying to get audio table populated with audio file and hotspot
+	//$query = "INSERT INTO audio (photo_id,audio_file,hotspot_location) VALUES 
+		//('$photo_id','$audio_file','$hotspot')";
+
+
 	$result = mysqli_query($conn, $query);
 	if(!$result){
-		die("Database query failed.". mysqli_error($conn));
+		die("Database query failed.". mysqli_error($conn).$query);
 	}
+
+
+	// do new query here
+
+	$query = "INSERT INTO audio (unique_id,audio_id,hotspot) VALUES ('$id','$hotspot_id','$hotspot')";
+
+
+	$result = mysqli_query($conn, $query);
+	if(!$result){
+		die("Database query failed.". mysqli_error($conn).$query);
+	}
+
 
 	mysqli_close($conn);
 	echo "success";
@@ -63,7 +91,7 @@ if($data){// decode it
 	$decodedData = base64_decode($data);
 	// print out the raw data, 
 	//echo ($decodedData);
-	$filename = 'audio_recording_' . $id .'.mp3';
+	$filename = 'audio_recording_' . $id .'_'.$hotspot_id.'.mp3';
 
 
 	// write the data out to the file

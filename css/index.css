@@ -40,7 +40,7 @@
   bottom: 0;
   left: 0;
   width: 800px;
-  height: 500px;
+  height: 300px;
   border-radius: 3px;
   font-family:"Helvetica Neue", Helvetica,Arial,sans-serif;
 }
@@ -53,7 +53,7 @@ p.stepOne{
 }
 
 #stepTwo{
-	  background:#CDD0D1;
+	  background:#FFFFFF;
 	  top: 0;
 	  right: 0;
 	  bottom: 0;
@@ -64,15 +64,28 @@ p.stepOne{
 	  font-family:"Helvetica Neue", Helvetica,Arial,sans-serif;
 }
 
+#stepThree{
+	padding-left: 10%;
 }
 
+
 #fileUpload{
-	padding-left:65%;
-	width:100%;
+	padding-left: 9.65%;
+    width: 100%;
 }
 
 #imagePreview{
 	padding-left:50%;
+}
+
+#recordButton{
+	padding-left:10%;
+	font-size: 15px;
+}
+
+#recordingList{
+	padding-left:35%;
+
 }
 
 h1 {
@@ -98,7 +111,7 @@ h2 {
   .outsideWrapper {
   	  padding-left: 50%;
       width:500px;
-      height:400px;
+      height:300px;
       margin:20px 60px;
       border:1px black;
   }

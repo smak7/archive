@@ -1,0 +1,174 @@
+#header{
+  width:100%;
+  height:80px;
+  background-color: black;
+}
+
+p{
+  color: #FFFFFF;
+  text-align: center;
+  padding-top: 35px;
+  font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;  
+}
+
+h3{
+  font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;  
+
+}
+
+#intro{
+  /*padding-top: 90px;
+  margin-bottom: 150px;*/
+  text-align:center;
+  font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;  
+  width:100%;
+ /* height:250px;*/
+  vertical-align: middle;
+  display:block;
+}
+
+hr {
+    border-top: 1px solid #000;
+}
+/*.circle{
+  font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;  
+  width:110px;
+  height:110px;
+  border-radius:80px;
+  font-size:18px;
+  color:#fff;
+  line-height:110px;
+  text-align:center;
+  background:#000;
+  display: inline-block;
+
+}*/
+.circleThree{
+  margin-top: 500px;
+  margin-left: 50px;
+  float:left;
+  font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;  
+  width:80px;
+  height:80px;
+  border-radius:50px;
+  font-size:18px;
+  color:#fff;
+  line-height:80px;
+  text-align:center;
+  background:#000
+
+}
+.stepOne{
+  font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;  
+  border-radius:50px;
+  font-size:20px;
+  color:#000;
+  line-height:80px;
+  text-align:center;
+  background:#FFFFFF;
+  padding-left: 0px;
+ /* margin-bottom:200px;*/
+/*  font-weight:bold;*/
+}
+
+.btn-primary {
+   
+}
+.imgplaceHolder{
+  float:center;
+  width:100%;
+  height:150px;
+}
+
+.stepThree{
+  width:800px;
+  height:300px;
+  float:right;
+  margin-top: 100px;
+}
+
+#imagePreview{
+  float:right;
+  width:500px;
+  height:600px;
+}
+
+.submit{
+  float:left;
+  width:70px;
+  height:50px;
+}
+.form{
+  font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;  
+  font-size: 15px;
+}
+
+.metadata-input{
+  display:inline-block;
+}
+
+.step2Center{
+  display:block;
+  width:100%;
+}
+
+.image{
+  width: inherit;
+  height: inherit;
+  position: relative;
+  display:block;
+}
+
+/*#recordButton{
+  margin-left: 50px;
+  margin-top:30px;
+}*/
+
+.recording{
+  margin-top:50px;
+  line-height:30px;
+}
+button {
+    font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;  
+    font-size: 20px;
+    align-items: flex-start;
+    text-align: center;
+    cursor: default;
+    color: buttontext;
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+    background-color: buttonface;
+    box-sizing: border-box;
+    padding: 8px 12px 9px;
+    border: 2px outset buttonface;
+}
+
+.preview-img{
+  max-width: 500px;
+  max-height: 600px;
+}
+
+.preview{
+
+}
+
+.upload-overlay{
+/*  background-color: rgba(46, 31, 70, 0.08);*/
+  width:inherit;
+  height:500px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+ul { 
+  list-style: none; 
+}
+#recordingslist audio { 
+  display: block;
+   margin-bottom: 10px; 
+ }

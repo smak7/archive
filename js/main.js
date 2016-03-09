@@ -12,18 +12,6 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-var zindex = 15;
-
-
-        var canvas = document.createElement("canvas");        
-        canvas.className = 'canvases';
-        canvas.style.border = '2px solid red';
-        canvas.style.zIndex = zindex; 
-        zindex++;
-
-        var parentDiv = document.getElementById("editor-section");
-        parentDiv.appendChild(canvas);
-
 
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 

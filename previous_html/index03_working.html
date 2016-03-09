@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Simple Save to Database</title>
+		<meta charset="utf-8">
+	    <meta name="description" content="archive">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script type ="text/javascript" src="js/savedata.js"></script>
+		<script type = "text/javas/MediaStreamRecorder.js"> </script>
+    <script type ="text/javascript" src="js/jquery.imgareaselect.min.js"></script>
+		<link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link href="css/index03.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="css/imgareaselect-animated.css">
+
+
+	</head>
+
+	<body>
+    <div id="header">
+      <p> insert logo </p>
+    </div>
+
+    <div id = "intro">
+      <h1> Thank you for choosing to contribute! <br>Scroll down to begin the upload process.</h1>
+      <br>
+      <hr width="40%" align ="center"></hr>
+    </div>
+ 
+  
+    <form name="saveName" id="saveName" method="post" enctype="multipart/form-data">
+          <div class = "stepOne">
+                  <div class="circle"> Step 1 </div>
+              <div class = "button"> 
+                 <input id = "uploader" type="file" name="image" style = "visibility:hidden;width:1px;height:1px;">
+                 <a class = "btn btn-primary" href="" onclick="document.getElementById('uploader').click(); return false">Upload Image</a>
+              </div>
+          </div>
+
+          <div class ="stepOne">  
+              <div class="circle"> Step 2 </div>      
+              <h3> Preview </h3>
+              <div class = "image">   
+                  <div class = "preview">
+                      <img class = "preview-img" id="preview"/>
+                  </div>
+              </div>  
+              <h3> Metadata </h3>
+              <div>
+                  <div class ="metadata-input">  
+
+                        <div class = "input-group">
+                           <input class = "form-control" name="description" placeholder = "Description" type="text">
+
+                           <input class = "form-control" name="keywords" placeholder = "Keywords" type= "text">
+                           <input class = "form-control" name="location" placeholder = "Location" type= "text">                      
+                            <input class = "form-control" name="year" placeholder = "Year" type= "text">
+                        </div>      
+                        <div class = "submit">
+                            <input class = "btn btn-primary" type="submit" value="submit">
+                        </div>
+                  </div>
+              </div>
+          </div>
+         <!--  <canvas class = "coveringCanvas"></canvas> -->
+          <!-- <div class ="form"> -->
+              <!-- <div class ="stepThree"> 
+                <div id = "imagePreview">
+                </div>
+              </div> -->
+
+         <!-- </div> -->
+         <!-- <div id="response"></div> -->
+         <div class ="stepOne">  
+         <div class="circle"> Step 3 </div> 
+         <div class = "recording"> 
+          <button onclick="startRecording(this);">record </button>
+          <button onclick="stopRecording(this);" disabled>stop</button>
+        </div>
+        <!--  <div class = "stepThree"> -->
+          <!--  <div class ="stepOne"> -->
+              <!-- <button onclick="startRecording(this);">record</button>
+              <button onclick="stopRecording(this);" disabled>stop</button> -->
+          </div>
+         <!--   </div> -->
+           <div id = "recordingList">
+              <ul id="recordingslist"></ul>
+          </div>
+        <!-- </div> -->
+
+		</form>
+
+		<!-- <div id="response"></div>
+    <div class="circleThree"> Step 3 </div>
+    <div class = "stepThree">
+        <div class ="stepOne">
+            <button onclick="startRecording(this);">record</button>
+            <button onclick="stopRecording(this);" disabled>stop</button>
+        </div>
+        <div id = "recordingList">
+            <ul id="recordingslist"></ul>
+        </div>
+    </div> -->
+		
+    <!--<script src="saveData.js" type="text/javascript"></script>-->
+	   <script>
+          $(document).ready(function () {
+
+              var loadFile = function(event) {
+                  var reader = new FileReader();
+                  reader.onload = function(){
+                    var preview = document.getElementById('preview');
+                    preview.src = reader.result;
+                  };
+                  reader.readAsDataURL(event.target.files[0]);
+                };
+              $ ('input#uploader').on("change",loadFile);
+              $('img#preview').imgAreaSelect({
+                handles: true,
+                onSelectEnd: function (img, selection) {
+                  console.log('x1: ' + selection.x1 + '; y1: ' + selection.y1);
+                  console.log('x2: ' + selection.x2 + '; y2: ' + selection.y2);
+                }
+              });
+          });
+     </script> 
+
+  </body>
+</html>

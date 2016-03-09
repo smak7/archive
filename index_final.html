@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Simple Save to Database</title>
+		<meta charset="utf-8">
+	    <meta name="description" content="archive">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script type ="text/javascript" src="js/savedata.js"></script>
+		<script type = "text/javas/MediaStreamRecorder.js"> </script>
+    <script type ="text/javascript" src="js/jquery.imgareaselect.min.js"></script>
+		<link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link href="css/index03.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="css/imgareaselect-animated.css">
+
+
+	</head>
+
+	<body>
+    <div id="header">
+      <p> insert logo </p>
+    </div>
+
+    <div id = "intro">
+      <h1> Thank you for choosing to contribute! <br>Scroll down to begin the upload process.</h1>
+      <br>
+      <hr width="40%" align ="center"></hr>
+    </div>
+ 
+  
+    <form name="saveName" id="saveName" method="post" enctype="multipart/form-data">
+          <div class = "stepOne">
+                  <div class="circle"> </div>
+              <div class = "button"> 
+                 <input id = "uploader" type="file" name="image" style = "visibility:hidden;width:1px;height:1px;">
+                 <a class = "btn btn-primary" href="" onclick="document.getElementById('uploader').click(); return false">Upload Image</a>
+              </div>
+          </div>
+
+          <div class ="stepOne">  
+              <div class="circle"></div>      
+              <div class = "image">   
+                  <div class = "preview">
+                      <img class = "preview-img" id="preview"/>
+                  </div>
+              </div>  
+              <h3> Metadata </h3>
+              <div>
+                  <div class ="metadata-input">  
+
+                        <div class = "input-group">
+                           <input class = "form-control" name="description" placeholder = "Description" type="text">
+
+                           <input class = "form-control" name="keywords" placeholder = "Keywords" type= "text">
+                           <input class = "form-control" name="location" placeholder = "Location" type= "text">                      
+                            <input class = "form-control" name="year" placeholder = "Year" type= "text">
+                        </div>      
+                        <div class = "submit">
+                            <input class = "btn btn-primary" type="submit" value="submit">
+                        </div>
+                  </div>
+              </div>
+          </div>
+
+           <div class ="stepOne">  
+             <div class="circle"> Step 3 </div> 
+             <div class = "recording"> 
+                  <button onclick="startRecording(this);">record </button>
+                  <button onclick="stopRecording(this);" disabled>stop</button>
+              <div id = "recordingList">
+                  <ul id="recordingslist"></ul>
+              </div>
+            </div>
+          </div>
+		</form>
+
+	 <script>
+             $(document).ready(function () {
+                  var loadFile = function(event) {
+                  var reader = new FileReader();
+                  reader.onload = function(){
+                  var preview = document.getElementById('preview');
+                    preview.src = reader.result;
+                  };
+                  reader.readAsDataURL(event.target.files[0]);
+                };
+              $ ('input#uploader').on("change",loadFile);
+              $('img#preview').imgAreaSelect({
+                handles: true,
+                onSelectEnd: function (img, selection) {
+                  x1 = selection.x1;
+                  y1 = selection.y1;
+                  x2 = selection.x2;
+                  y2 = selection.y2;
+                  // console.log('x1: ' + selection.x1 + '; y1: ' + selection.y1);
+                  // console.log('x2: ' + selection.x2 + '; y2: ' + selection.y2);
+                }
+              });
+          });
+         
+              
+              // function for on submit
+              var my_form = document.forms.namedItem("saveName");
+
+              var mp3Blob;
+              var x1, y1, x2, y2; 
+
+              
+              my_form.addEventListener('submit', function(ev){
+                ev.preventDefault();
+                console.log("send form");
+           
+                var fd = new FormData(my_form);
+                fd.append('hotspot_location', [x1,y1,x2,y2]);
+
+                if(mp3Blob){
+                  
+                  var reader = new FileReader();
+                  reader.onload = function(event){
+
+                    var mp3Name = encodeURIComponent('audio_recording_' + new Date().getTime() + '.mp3');
+                    console.log("mp3name = " + mp3Name);
+                
+                    fd.append('audio_file', mp3Name);
+                    fd.append('data', event.target.result);
+                    do_upload(fd);
+
+                };             
+
+                reader.readAsDataURL(mp3Blob);
+              }else{
+                do_upload(fd);
+              }
+            });
+
+
+            function do_upload(fd){
+               // fd = {id: "123", audio_file: "/blah", hotspot_location: [1, 2, 3, 4]} 
+               //  console.log("data",fd);
+
+                $.ajax({ 
+                      type: 'POST',
+                      url: 'archive.php',
+                      data: fd,
+                      processData: false,
+                      contentType: false
+                      })
+                      .done(function(data) {
+                        console.log(data);
+                      // log.innerHTML += "\n" + data;
+                    });
+              }
+
+                function __log(e, data) {
+                  //log.innerHTML += "\n" + e + " " + (data || '');
+                }
+
+                var audio_context;
+                var recorder;
+
+                function startUserMedia(stream) {
+                  var input = audio_context.createMediaStreamSource(stream);
+
+                  recorder = new Recorder(input, {
+                                numChannels: 1
+                              });
+                  // __log('Recorder initialised.');
+                }
+
+                function startRecording(button) {
+                  recorder && recorder.record();
+                  button.disabled = true;
+                  button.nextElementSibling.disabled = false;
+                  __log('Recording...');
+                }
+
+                function stopRecording(button) {
+                  recorder && recorder.stop();
+                  button.disabled = true;
+                  button.previousElementSibling.disabled = false;
+                  __log('Stopped recording.');
+
+                  // create WAV download link using audio data blob
+                  createDownloadLink();
+
+                  recorder.clear();
+                }
+
+                function createDownloadLink() {
+                  recorder && recorder.exportWAV(function(blob) {
+                  });
+                }
+
+                window.onload = function init() {
+                  try {
+                    // webkit shim
+                    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+                    navigator.getUserMedia = ( navigator.getUserMedia ||
+                                     navigator.webkitGetUserMedia ||
+                                     navigator.mozGetUserMedia ||
+                                     navigator.msGetUserMedia);
+                    window.URL = window.URL || window.webkitURL;
+
+                    audio_context = new AudioContext;
+                    // __log('Audio context set up.');
+                    // __log('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
+                  } catch (e) {
+                    alert('No web audio support in this browser!');
+                  }
+
+                  navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
+                    __log('No live audio input: ' + e);
+                  });
+            };
+  </script>
+  <script src="recordmp3.js"></script>
+
+  </body>
+</html>
