@@ -11,6 +11,7 @@
 	$audio_file = $_POST['audio_file'];
 	$hotspot = $_POST['hotspot_location'];
 	$hotspot_id = 0;
+	$target_file = "uploads/img_".$id.".jpg";
 	echo 'ok ';
 	echo  $_POST['year'];
 	echo 'hotspot ' . $hotspot;
